@@ -5,7 +5,7 @@ from urllib.request import urlopen
 print("Hello Game master, this is dylans hangman simulator rtx 2000")
 #finds random word
 word = ""
-while len(word) < 3:
+while len(word) < 3 or len(word) > 7:
     """rolls random word"""
     response = urlopen("https://www.mit.edu/~ecprice/wordlist.10000")
     txt = response.read()
@@ -53,7 +53,7 @@ def dude(state):
         print(" /\ ")
                 
 def say(words):
-    time.sleep(1)
+    time.sleep(0.8)
     print(words)
 
 say("do you want our random word or do you want to make a word?")
@@ -90,6 +90,7 @@ while "_" in guess and state >= 1:
     if letter not in wl:
         state -= 1
         say("oops, sorry thats not in the word.")
+        attempt.sort()
 
 if state <= 0:
     dude(0)
