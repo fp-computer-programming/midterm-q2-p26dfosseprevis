@@ -2,13 +2,12 @@ import time
 import random
 import os
 from urllib.request import urlopen
-print("Hello Game master, this is dylans hangman simulator rtx 2000")
+print("Hello Game master, this is Dylans hangman simulator rtx 2000")
 #finds random word
 word = ""
 while len(word) < 3 or len(word) > 7:
-    """rolls random word"""
-    response = urlopen("https://www.mit.edu/~ecprice/wordlist.10000")
-    txt = response.read()
+    #rolls random word
+    txt = urlopen("https://www.mit.edu/~ecprice/wordlist.10000").read()
     WORDS = txt.splitlines()
     word = str(random.choice(WORDS))
 
@@ -51,11 +50,13 @@ def dude(state):
         print(" O")
         print("/|\ ")
         print(" /\ ")
-                
+
+#say cmd to make game feel more lifelike                
 def say(words):
     time.sleep(0.8)
     print(words)
 
+#intro
 say("do you want our random word or do you want to make a word?")
 setting = input("(our/own): ")
 if setting == "our":
@@ -64,15 +65,19 @@ elif setting == "own":
     word = input("ok, what word do you want?: ")
 
 say(f"the word is {word} I will now reload the log to for the user")
-time.sleep(1)
+time.sleep(2)
 os.system('cls')
 say("hello player, wish you luck")
+
+#variable setup for gameplay loop
 state = 6 
 guess = []
 wl = list(word)
 for x in wl:
     guess += "_"
 attempt = []
+
+#gameplayloop
 while "_" in guess and state >= 1:
     say("ok, so far the word looks like this")
     say(guess)
@@ -92,6 +97,7 @@ while "_" in guess and state >= 1:
         say("oops, sorry thats not in the word.")
         attempt.sort()
 
+#game over dialog
 if state <= 0:
     dude(0)
     say("you failed")
